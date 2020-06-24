@@ -26,21 +26,23 @@ module.exports.checkToken = (req, res, next) => {
 };
 
 module.exports.checkAdmin = (req, res, next) => {
-  const { decode } = res.locals;
+  checkToken(req, res, () => {
+    const { decode } = res.locals;
 
-  if (!decode) {
-    return res.status(401).json({
-      message: "Token no provided",
-      status: false
-    });
-  }
+    if (!decode) {
+      return res.status(401).json({
+        message: "Token no provided",
+        status: false
+      });
+    }
 
-  if (!decode.isAdmin) {
-    return res.status(403).json({
-      message: "Permission denied",
-      status: false
-    });
-  }
+    if (!decode.isAdmin) {
+      return res.status(403).json({
+        message: "Permission denied",
+        status: false
+      });
+    }
 
-  next();
+    next();
+  });
 };

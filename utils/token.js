@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const logger = require("./winton");
+const logger = require("./logger");
 
 function Token(secret, option) {
   this.secret = secret;
