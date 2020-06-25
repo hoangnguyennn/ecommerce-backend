@@ -18,6 +18,7 @@ module.exports.checkToken = (req, res, next) => {
     next();
   } catch (e) {
     logger.error(e);
+    res.clearCookie("accessToken");
     return res.status(400).json({
       message: "Invalid token",
       status: false

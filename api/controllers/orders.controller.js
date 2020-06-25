@@ -6,6 +6,13 @@ module.exports.create = async (req, res) => {
   const order = req.body;
 
   try {
+    if (order.details.length === 0) {
+      return res.status(400).json({
+        message: "Giỏ hàng rỗng",
+        success: false
+      });
+    }
+
     order.customerId = decode.customerId;
     const result = await OrderBO.create(order);
 
